@@ -8,7 +8,7 @@ export function AntdProviders({ children }: { children: React.ReactNode }) {
             theme={{
             token: {
                 // Seed Token
-                colorPrimary: '#00b96b' ,
+                colorPrimary: '#213555' ,
                 borderRadius: 2,
 
                 // Alias Token
