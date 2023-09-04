@@ -2,10 +2,11 @@
 @tailwind components;
 @tailwind utilities; */
 
-@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;500&display=swap');
 
 * {
   font-family: "Montserrat", sans-serif !important;
+  box-sizing: border-box;
 }
 
 :root {
@@ -22,7 +23,7 @@
   }
 }
 
-body {
+/* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -30,11 +31,11 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-}
+} */
 
 html,
 body {
-  border-style: border-box;
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
@@ -42,3 +43,36 @@ body {
 /* button {
   background-color: #00b96b !important;
 } */
+
+input {
+  height: 45px;
+  width: 100%;
+  border: 1px solid #c6c6c6;
+  padding-left: 15px !important;
+  border-radius: 2px;
+}
+
+input:focus {
+  outline: none;
+  border: 1px solid #353535;
+}
+
+button {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  height: 45px !important;
+  box-shadow: none !important;
+  border-radius: 2px !important;
+}
+
+label {
+  margin: 0px !important;
+  padding: 0px !important;
+  color: #353535 !important;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary) !important;
+}
