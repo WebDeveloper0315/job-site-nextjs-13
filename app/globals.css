@@ -1,15 +1,14 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
-*{
+* {
   font-family: "Montserrat", sans-serif !important;
 }
 
-
- :root {
+:root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -31,8 +30,15 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-} 
-
-button {
-  background-color: #00b96b !important;
 }
+
+html,
+body {
+  border-style: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* button {
+  background-color: #00b96b !important;
+} */
