@@ -1,12 +1,19 @@
 'use client'
 import React from "react"
-import { Button, Form, Radio } from 'antd'
+import { Button, Form, Radio, message } from 'antd'
 import Link from "next/link"
+import axios from "axios"
 
 export default function Register() {
 
-    const onFinish = (values: any) => {
-        console.log("success", values)
+    const onFinish = async(values: any) => {
+        // console.log("success", values)
+        try {
+            const response = await axios.post('/api/users/register', values)
+            message.success(response.data.message)
+        } catch (error : any) {
+            message.error(error.response.data.message || 'Something went wrong')
+        }
     }
 
     return (
