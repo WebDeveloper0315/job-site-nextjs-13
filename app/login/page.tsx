@@ -1,12 +1,21 @@
 'use client'
 import React from "react"
-import { Button, Form, Radio } from 'antd'
+import { Button, Form, Radio, message } from 'antd'
 import Link from "next/link"
+import axios from 'axios'
+import { useRouter } from "next/navigation"
 
 export default function Login() {
+    const router = useRouter()
 
-    const onFinish = (values: any) => {
-        console.log("success", values)
+    const onFinish = async(values: any) => {
+        try {
+            const response = await axios.post('/api/users/login', values)
+            message.success(response.data.message)
+            router.push("/")
+        } catch (error: any) {
+            message.error(error.response.data.message || 'Something went wrong')
+        }
     }
 
     return (
