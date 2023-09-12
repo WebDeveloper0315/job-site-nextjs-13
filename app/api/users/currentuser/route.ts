@@ -1,6 +1,9 @@
+import { connectDB } from "@/config/dbConfig"
 import { validateJWT } from "@/helpers/validateJWT"
 import User from "@/models/userModel"
 import { NextRequest, NextResponse } from "next/server"
+
+connectDB()
 
 export async function GET(request: NextRequest) {
   try {

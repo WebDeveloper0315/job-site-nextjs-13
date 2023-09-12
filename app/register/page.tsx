@@ -3,16 +3,23 @@ import React from "react"
 import { Button, Form, Radio, message } from 'antd'
 import Link from "next/link"
 import axios from "axios"
+import {useDispatch} from 'react-redux'
+import { SetLoading } from "@/redux/loadersSlice"
 
 export default function Register() {
+
+    const dispatch = useDispatch()
 
     const onFinish = async(values: any) => {
         // console.log("success", values)
         try {
+            dispatch(SetLoading(true))
             const response = await axios.post('/api/users/register', values)
             message.success(response.data.message)
         } catch (error : any) {
             message.error(error.response.data.message || 'Something went wrong')
+        } finally {
+            dispatch(SetLoading(false))
         }
     }
 

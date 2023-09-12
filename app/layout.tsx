@@ -5,6 +5,8 @@ import AntdProvider from '@/component/AntdProvider'
 import './../styles/antdOverride.css'
 import './../styles/commonClasses.css'
 import './../styles/layout.css'
+import './../styles/loader.css'
+import ReduxProvider from '@/component/ReduxProvider'
 
 
 export const metadata: Metadata = {
@@ -23,9 +25,11 @@ export default function RootLayout({
         <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet"/>
       </head>
       <body >
-        <AntdProvider>
-          {children}
-        </AntdProvider>
+        <ReduxProvider>
+          <AntdProvider>
+            {children}
+          </AntdProvider>
+        </ReduxProvider>
       </body>
     </html>
   )

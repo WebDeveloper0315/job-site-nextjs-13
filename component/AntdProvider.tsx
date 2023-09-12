@@ -1,9 +1,18 @@
 'use client'
-import React from 'react'
-import { ConfigProvider } from 'antd'
+import React, { useEffect } from 'react'
+import { ConfigProvider, message } from 'antd'
 import { usePathname } from 'next/navigation'
+import axios from "axios";
+import { useDispatch, useSelector } from 'react-redux'
+import { SetCurrentUser } from '@/redux/usersSlice'
+import Loader from './Loader';
+import { SetLoading } from '@/redux/loadersSlice';
+
 
 export default function AntdProvider({ children }: { children: React.ReactNode }) {
+    const {currentUser} = useSelector((state:any) => state.users)
+    const { loading } = useSelector((state: any) => state.loaders)
+    const dispatch = useDispatch()
     const [isSidebarExpanded, setIsSidebarExpanded] = React.useState(true)
     const menuitems = [
         {
@@ -34,6 +43,26 @@ export default function AntdProvider({ children }: { children: React.ReactNode }
     ]
     
     const pathname = usePathname()
+
+    const getCurrentUser =async () => {
+        try {
+            dispatch(SetLoading(true))
+            const response = await axios.get("api/users/currentuser")
+            dispatch(SetCurrentUser(response.data.data))
+        } catch (error : any) {
+            message.error(error.response.data.message || "Something went wrong")
+        } finally {
+            dispatch(SetLoading(false))
+        }
+    }
+
+    useEffect(() => {
+        if(pathname !== '/login' && pathname !== '/register'){
+            getCurrentUser()
+        }
+        
+    }, [pathname])
+    
     return (
 
         <ConfigProvider
@@ -48,6 +77,8 @@ export default function AntdProvider({ children }: { children: React.ReactNode }
                 },
             }}
         >
+
+            {loading && <Loader/>}
 
             {/* if route is login or register, don't show layout */}
             {pathname === '/login' || pathname === '/register' ? (
@@ -85,8 +116,8 @@ export default function AntdProvider({ children }: { children: React.ReactNode }
                         <div className='user-info'>
                             {isSidebarExpanded && (
                             <div className='flex flex-col'>
-                                <span>User Name</span>
-                                <span>User Email</span>
+                                <span>{currentUser?.name}</span>
+                                <span>{currentUser?.email}</span>
                             </div>
                             )}
                             <i className="ri-logout-box-r-line"></i>
