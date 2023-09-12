@@ -6,13 +6,15 @@ import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux'
 import { SetCurrentUser } from '@/redux/usersSlice'
 import Loader from './Loader';
-import { SetLoading } from '@/redux/loadersSlice';
+import { SetLoading } from '@/redux/loadersSlice'
+import { useRouter } from 'next/navigation'
 
 
 export default function AntdProvider({ children }: { children: React.ReactNode }) {
     const {currentUser} = useSelector((state:any) => state.users)
     const { loading } = useSelector((state: any) => state.loaders)
     const dispatch = useDispatch()
+    const router = useRouter()
     const [isSidebarExpanded, setIsSidebarExpanded] = React.useState(true)
     const menuitems = [
         {
@@ -62,6 +64,20 @@ export default function AntdProvider({ children }: { children: React.ReactNode }
         }
         
     }, [pathname])
+
+    const onLogout = async () => {
+        try {
+            dispatch(SetLoading(true))
+            await axios.post('api/users/logout')
+            message.success("Logout Successfully.")
+            dispatch(SetCurrentUser(null))
+            router.push('/login')
+        } catch (error: any) {
+            message.error(error.response.data.message || 'Something went wrong')
+        } finally {
+            dispatch(SetLoading(false))
+        }
+    }
     
     return (
 
@@ -120,8 +136,8 @@ export default function AntdProvider({ children }: { children: React.ReactNode }
                                 <span>{currentUser?.email}</span>
                             </div>
                             )}
-                            <i className="ri-logout-box-r-line"></i>
-                        </div>
+                            <i className="ri-logout-box-r-line" onClick={onLogout}></i>
+                        </div> 
                     </div>
                     <div className="body">
                         {children}
