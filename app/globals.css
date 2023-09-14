@@ -38,23 +38,29 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  color:  #636262;
 }
 
 /* button {
   background-color: #00b96b !important;
 } */
 
-input {
-  height: 45px;
+input, textarea {
+  min-height: 45px;
   width: 100%;
   border: 1px solid #c6c6c6;
   padding-left: 15px !important;
   border-radius: 2px;
 }
 
-input:focus {
+input:focus, textarea:focus {
   outline: none;
   border: 1px solid #353535;
+}
+
+textarea {
+  margin-top: 10px !important;
+  min-height: 100px;
 }
 
 button {
@@ -75,4 +81,13 @@ label {
 a {
   text-decoration: none;
   color: var(--primary) !important;
+}
+
+.ant-radio-input {
+  accent-color: #232323 !important;
+}
+
+i {
+  font-size: 25px;
+  cursor: pointer;
 }

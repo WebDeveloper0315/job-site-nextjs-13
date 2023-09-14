@@ -59,7 +59,7 @@ export default function AntdProvider({ children }: { children: React.ReactNode }
     }
 
     useEffect(() => {
-        if(pathname !== '/login' && pathname !== '/register'){
+        if(pathname !== '/login' && pathname !== '/register' && !currentUser){
             getCurrentUser()
         }
         
@@ -102,6 +102,7 @@ export default function AntdProvider({ children }: { children: React.ReactNode }
                     {children}
                 </div>
             ):(
+                currentUser && (
                 <div className='layout-parent'>
                     <div className="sidebar">
                         <div className='logo'>
@@ -120,6 +121,8 @@ export default function AntdProvider({ children }: { children: React.ReactNode }
                                 return (
                                     <div className={`menu-item ${isActive ? "active-menu-item" : ""}`}
                                     style={{justifyContent: isSidebarExpanded ? "flex-start": "center",}}
+                                    key={index}
+                                    onClick={() => router.push(item.path)}
                                     >
                                         <i className={item.icon}>
                                         </i>
@@ -143,6 +146,7 @@ export default function AntdProvider({ children }: { children: React.ReactNode }
                         {children}
                     </div>
                 </div>
+                )
             )}
             {/* {children} */}
         </ConfigProvider>

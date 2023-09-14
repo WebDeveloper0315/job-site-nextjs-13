@@ -10,6 +10,6 @@ export const validateJWT = async (request: NextRequest) => {
         const decodedData:any = await jwt.verify(token, process.env.jwt_secret!)
         return decodedData.userId
     } catch (error: any) {
-        throw new Error(error.message)
+        throw new Error('error.message')
     }
 }

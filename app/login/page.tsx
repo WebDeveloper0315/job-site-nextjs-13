@@ -32,12 +32,12 @@ export default function Login() {
                 <Form layout='vertical' className="flex flex-col gap-5"
                     onFinish={onFinish}
                 >
-                    <Form.Item label="Login As" name='userType'>
+                    {/* <Form.Item label="Login As" name='userType'>
                         <Radio.Group>
                             <Radio value="employer">Employer</Radio>
                             <Radio value="employee">Employee</Radio>
                         </Radio.Group>
-                    </Form.Item>
+                    </Form.Item> */}
 
                     <Form.Item label="Email" name='email'>
                         <input type="email" className="input" />
