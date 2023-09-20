@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ConfigProvider, message } from 'antd'
 import { usePathname } from 'next/navigation'
 import axios from "axios";
@@ -16,7 +16,7 @@ export default function AntdProvider({ children }: { children: React.ReactNode }
     const dispatch = useDispatch()
     const router = useRouter()
     const [isSidebarExpanded, setIsSidebarExpanded] = React.useState(true)
-    const menuitems = [
+    const [menuItems, setMenuItems ] = useState([
         {
             name: "Home",
             path: "/",
@@ -42,7 +42,7 @@ export default function AntdProvider({ children }: { children: React.ReactNode }
             path: "/saved",
             icon: "ri-save-line"
         }
-    ]
+    ])
     
     const pathname = usePathname()
 
@@ -50,9 +50,18 @@ export default function AntdProvider({ children }: { children: React.ReactNode }
         try {
             dispatch(SetLoading(true))
             const response = await axios.get("api/users/currentuser")
+            const isEmployer = response.data.data.userType === 'employer'
             dispatch(SetCurrentUser(response.data.data))
+
+            if(isEmployer) {
+                const tempMenuItems = menuItems
+                tempMenuItems[2].name = 'Posted Jobs'
+                tempMenuItems[2].path = '/jobs'
+                setMenuItems(tempMenuItems)
+            }
+            
         } catch (error : any) {
-            message.error(error.response.data.message || "Something went wrong")
+            message.error(error.response.data.message || "Error during getting the current user")
         } finally {
             dispatch(SetLoading(false))
         }
@@ -73,7 +82,7 @@ export default function AntdProvider({ children }: { children: React.ReactNode }
             dispatch(SetCurrentUser(null))
             router.push('/login')
         } catch (error: any) {
-            message.error(error.response.data.message || 'Something went wrong')
+            message.error(error.response.data.message || 'Error during logout')
         } finally {
             dispatch(SetLoading(false))
         }
@@ -116,7 +125,7 @@ export default function AntdProvider({ children }: { children: React.ReactNode }
                         </div>
 
                         <div className='menu-items'>
-                            {menuitems.map((item, index) => {
+                            {menuItems.map((item, index) => {
                                 const isActive = pathname === item.path
                                 return (
                                     <div className={`menu-item ${isActive ? "active-menu-item" : ""}`}

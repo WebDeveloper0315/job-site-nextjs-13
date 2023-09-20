@@ -38,14 +38,16 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  color:  #636262;
+  color: #636262;
 }
 
 /* button {
   background-color: #00b96b !important;
 } */
 
-input, textarea {
+input,
+textarea,
+select {
   min-height: 45px;
   width: 100%;
   border: 1px solid #c6c6c6;
@@ -53,7 +55,9 @@ input, textarea {
   border-radius: 2px;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus,
+select:focus {
   outline: none;
   border: 1px solid #353535;
 }
@@ -90,4 +94,9 @@ a {
 i {
   font-size: 25px;
   cursor: pointer;
+}
+
+table {
+  border: 1px solid #c7c7c7 !important;
+  border-radius: 5px;
 }
