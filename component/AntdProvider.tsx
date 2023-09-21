@@ -49,7 +49,7 @@ export default function AntdProvider({ children }: { children: React.ReactNode }
     const getCurrentUser =async () => {
         try {
             dispatch(SetLoading(true))
-            const response = await axios.get("api/users/currentuser")
+            const response = await axios.get("/api/users/currentuser")
             const isEmployer = response.data.data.userType === 'employer'
             dispatch(SetCurrentUser(response.data.data))
 
