@@ -29,7 +29,7 @@ export default function AntdProvider({ children }: { children: React.ReactNode }
         },
         {
             name: "Application",
-            path: "/application",
+            path: "/applications",
             icon: "ri-file-list-2-line"
         },
         {

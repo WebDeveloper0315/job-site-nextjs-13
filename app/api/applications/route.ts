@@ -36,7 +36,14 @@ export async function GET(request: NextRequest) {
           filtersObject['job'] = job
         }
 
-        const applications = await Application.find(filtersObject).populate('user').populate('job')
+        const applications = await Application.find(filtersObject)
+          .populate('user')
+          .populate({
+            path: 'job',
+            populate: {
+              path: 'user',
+            },
+          })
         return NextResponse.json({
             message:'Jobs fetched successfully',
             data: applications,
