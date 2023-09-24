@@ -36,7 +36,7 @@ export default function EditJob() {
         try {
             dispatch(SetLoading(true))
             const response = await axios.get(`/api/jobs/${jobid}`)
-            setJobData(response.data.data)
+            setJobData(response.data.data) 
         } catch (error:any) {
             message.error(error.message)
         } finally {

@@ -61,6 +61,7 @@ export default function AntdProvider({ children }: { children: React.ReactNode }
             }
             
         } catch (error : any) {
+            router.push('/login')
             message.error(error.response.data.message || "Error during getting the current user")
         } finally {
             dispatch(SetLoading(false))
@@ -77,7 +78,7 @@ export default function AntdProvider({ children }: { children: React.ReactNode }
     const onLogout = async () => {
         try {
             dispatch(SetLoading(true))
-            await axios.post('api/users/logout')
+            await axios.post('/api/users/logout')
             message.success("Logout Successfully.")
             dispatch(SetCurrentUser(null))
             router.push('/login')
