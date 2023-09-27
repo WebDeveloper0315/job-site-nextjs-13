@@ -1,7 +1,7 @@
 'use client'
 import PageTitle from "@/component/PageTitle"
 import { SetLoading } from "@/redux/loadersSlice"
-import { Table, message} from "antd"
+import { Button, Table, message} from "antd"
 import axios from "axios"
 import { useRouter } from "next/navigation"
 import React from "react"
@@ -19,6 +19,7 @@ export default function Applications({
     selectedJob : any
 }) 
 {
+    const router = useRouter()
     const [applications, setApplications] = React.useState([])
     const dispatch = useDispatch()
 
@@ -87,7 +88,15 @@ export default function Applications({
                 </select>
             )
         },
-        
+        {
+            title: 'Actions',
+            dataIndex: '_id',
+            render: (applicationId: string, application: any) => (
+                <Button onClick={()=>router.push(`/userinfo/${application.user._id}`)}>
+                    View
+                </Button>
+            ),
+        },
         
         
     ]

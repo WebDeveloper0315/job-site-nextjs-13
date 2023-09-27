@@ -8,7 +8,7 @@ connectDB()
 export async function GET(request: NextRequest, {params}: any) {
     try {
         validateJWT(request)
-        const job = await Job.findById(params.jobid)
+        const job = await Job.findById(params.jobid).populate('user')
         return NextResponse.json({
             message: "Job fetched successfully",
             data: job,

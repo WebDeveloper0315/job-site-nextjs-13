@@ -118,6 +118,9 @@ export default function JobInfo() {
                         <Button type="default" onClick={()=>router.back()}>
                             Cancel
                         </Button>
+                        <Button type="default" onClick={()=>router.push(`/userinfo/${jobData.user._id}`)}>
+                            View Company Info
+                        </Button>
                         <Button type="primary" onClick={onApply}
                             disabled={(currentUser.userType === 'employer') || (applications.length > 0)}
                         >
