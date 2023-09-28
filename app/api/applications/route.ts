@@ -1,4 +1,5 @@
 import { connectDB } from "@/config/dbConfig"
+import { sendEmail } from "@/helpers/sendEmail"
 import { validateJWT } from "@/helpers/validateJWT"
 import Application from "@/models/applicationModel"
 import { NextRequest, NextResponse } from "next/server"
@@ -10,7 +11,19 @@ export async function POST(request: NextRequest) {
     //console.log("token", request.cookies.get('token'))
     await validateJWT(request)
     const reqBody = await request.json()
-    const application = await Application.create(reqBody)
+    const application: any = await Application.create(reqBody)
+
+    await sendEmail({
+      to: application.job.user.email,
+      subject: "New application received",
+      text: `You have received a new application from ${application.user.name}`,
+      html: `<div>
+      <p>You have received a new application from ${application.user.name}</p>
+      <p>Applicant's name is ${application.user.name}</p>
+      <p>Applicant's email: ${application.user.email}</p>
+      <p>Applicant's phone number: ${application.user.phone}</p>
+      </div>` ,
+    })
 
     return NextResponse.json({ message: 'You have successfully applied for this job', data: application, })
   } catch (error: any) {
