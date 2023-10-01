@@ -25,13 +25,23 @@ export async function GET(request: NextRequest) {
         const {searchParams} = new URL(request.url)
 
         const user = searchParams.get('user')
+        const searchText = searchParams.get('searchText')
+        const location = searchParams.get('location')
 
         const filtersObject: any = {}
         if(user) {
           filtersObject['user'] = user
         }
 
-        const jobs = await Job.find(filtersObject).populate('user')
+        if(searchText && searchText != '') {
+          filtersObject['title'] = {$regex: searchText, $options: 'i'}
+        }
+
+        if(location && location != '') {
+          filtersObject['location'] = {$regex: location, $options: 'i'}
+        }
+
+        const jobs = await Job.find(filtersObject).populate('user')  
         return NextResponse.json({
             message:'Jobs fetched successfully',
             data: jobs,

@@ -6,8 +6,13 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Divider from '@/component/Divider'
 import { useRouter } from 'next/navigation'
+import Filters from '@/component/Filters'
 
 export default function Home() {
+  const [filters, setFilters] = React.useState({
+    searchText: "",
+    location: "",
+  })
   const router = useRouter()
   const [jobs = [], setJobs] = React.useState([])
   const dispatch = useDispatch()
@@ -16,7 +21,7 @@ export default function Home() {
   const fetchJobs = async () => {
     try {
         dispatch(SetLoading(true))
-        const response = await axios.get('/api/jobs')
+        const response = await axios.get('/api/jobs', {params: filters})
         setJobs(response.data.data)
     } catch (error:any) {
         message.error(error.message)
@@ -31,6 +36,7 @@ export default function Home() {
 
   return (
     <div>
+      <Filters filters={filters} setFilters={setFilters} getData={fetchJobs}/>
       <Row gutter={[16, 16]} className='gap-3'>
         {jobs.map((job:any) => (
           <Col 

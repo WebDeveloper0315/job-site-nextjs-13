@@ -24,6 +24,7 @@
   background-color: var(--primary);
   border-radius: 4px;
   padding: 5px 20px;
+  max-width: 250px;
 }
 
 .logo {
@@ -83,6 +84,9 @@
   padding: 10px;
   color: white !important;
   font-size: 14px;
+  background-color: rgb(55, 70, 120);
+  border-radius: 4px;
+  margin-bottom: 20px;
 }
 
 .user-info i {
